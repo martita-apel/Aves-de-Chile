@@ -1,5 +1,7 @@
 # Aves de Chile
 
+![Inicio](inicio.png)
+
 ## Project setup
 
 ```
