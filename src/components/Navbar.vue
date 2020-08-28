@@ -45,7 +45,7 @@ export default {
   text-align: left;
 }
 .logo {
-  width: 30%;
+  width: 190px;
 }
 .links {
   a {

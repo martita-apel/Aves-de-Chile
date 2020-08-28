@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <b-form class="form">
+    <b-form-group class="form">
       <h1 class="titulo">
-        ¡Hola, inicia sesión para conocer las aves de Chile!
+        ¡Hola, regístrate <br />
+        para conocer las <br />
+        aves de Chile!
       </h1>
       <b-form-input
         id="input"
@@ -21,7 +23,7 @@
       ></b-form-input>
 
       <b-button type="submit" class="bg-dark px-5">Entrar</b-button>
-    </b-form>
+    </b-form-group>
   </div>
 </template>
 
@@ -55,7 +57,7 @@ export default {
   background-color: white;
   justify-content: center;
   border-radius: 10px;
-  max-width: 40%;
+  width: fit-content;
   padding: 30px;
   margin: auto;
 }
