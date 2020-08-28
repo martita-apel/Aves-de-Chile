@@ -1,17 +1,17 @@
 <template>
   <div class="list">
-    <h1>Lista de aves</h1>
-    <div>
-      <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
-      <div class="mt-2">Value: {{ text }}</div>
-      <b-button pill variant="info">Button</b-button>
+    <h1>Inventario</h1>
+    <h2>AVES DE CHILE</h2>
+    <hr class="linea" />
+    <div class="buscador">
+      <b-form-input v-model="search" placeholder="Busca tu ave"></b-form-input>
     </div>
 
     <b-container class="bv-example-row mb-3">
       <b-row cols="6" class="cartas">
         <b-card
           class="m-2 card"
-          v-for="bird in birds"
+          v-for="bird in computedBirds"
           :key="bird.uid"
           :img-src="bird.images.main"
           img-alt="Image"
@@ -63,7 +63,7 @@ export default {
   components: {},
   data() {
     return {
-      text: "",
+      search: "",
       bird: {
         name: { spanish: "" },
         images: { main: "" },
@@ -73,6 +73,13 @@ export default {
   },
   computed: {
     ...mapState(["birds", "currentBird"]),
+    computedBirds() {
+      return this.birds.filter((bird) => {
+        return bird.name.spanish
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
+    },
   },
   methods: {
     ...mapActions(["getBirds", "showBird"]),
@@ -87,6 +94,23 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  margin: 30px 0 0 0;
+}
+h2 {
+  letter-spacing: 3px;
+  font-weight: lighter;
+}
+.linea {
+  width: 50%;
+  margin: auto;
+}
+.buscador {
+  width: fit-content;
+  display: inline-flex;
+  justify-content: center;
+  margin: 30px;
+}
 .cartas {
   justify-content: center;
 }
