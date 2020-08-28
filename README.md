@@ -1,6 +1,8 @@
 # Aves de Chile
 
 ![Inicio](inicio.png)
+![Inventario](inventario.png)
+![Detalle](birds-description.png)
 
 ## Project setup
 
@@ -22,7 +24,7 @@ npm run build
 
 ### Customize configuration
 
-See [web](https://aves-de-chile.web.app).
+See [web](https://aves-de-chile.web.app)
 
 email: martita.apel@gmail.com
 password: avesdechile
