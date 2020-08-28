@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <b-form-group class="form">
+    <b-form-group class="form" :model="user">
       <h1 class="titulo">
         ¡Hola, regístrate <br />
         para conocer las <br />
@@ -8,7 +8,7 @@
       </h1>
       <b-form-input
         id="input"
-        v-model="form.email"
+        v-model="user.email"
         type="email"
         required
         placeholder="Ingresa tu email"
@@ -16,31 +16,56 @@
 
       <b-form-input
         id="input"
-        v-model="form.name"
+        v-model="user.password"
         type="password"
         required
         placeholder="Ingresa tu contraseña"
       ></b-form-input>
 
-      <b-button type="submit" class="bg-dark px-5">Entrar</b-button>
+      <b-button type="submit" class="bg-dark px-5" @click="login"
+        >Entrar</b-button
+      >
     </b-form-group>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import firebase from "firebase";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      form: {
+      user: {
         email: "",
-        name: "",
-        checked: [],
+        password: "",
       },
     };
+  },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  methods: {
+    ...mapActions(["updateUser"]),
+    login(e) {
+      e.preventDefault();
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.user.email, this.user.password)
+        .then((user) => {
+          console.log(user);
+          let usuario = this.user.email;
+          this.updateUser(usuario);
+          this.$router.push("/list");
+          alert("Te has registrado con éxito!");
+        })
+        .catch(() => {
+          this.updateUser(null);
+          alert("¡Error al iniciar sesión!");
+        });
+    },
   },
 };
 </script>

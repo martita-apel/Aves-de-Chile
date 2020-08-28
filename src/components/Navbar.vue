@@ -14,12 +14,14 @@
             <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown right v-show="currentUser">
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
               <em>Usuario</em>
             </template>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item href="#" @click="logout"
+              >Cerrar Sesión</b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -28,8 +30,27 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import firebase from "firebase";
+
 export default {
   name: "Navbar",
+  data: () => ({}),
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  methods: {
+    ...mapActions(["updateUser"]),
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.updateUser(null);
+          this.$router.push("/");
+        });
+    },
+  },
 };
 </script>
 
