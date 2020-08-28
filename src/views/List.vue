@@ -12,14 +12,27 @@
         <b-card
           class="m-2 card"
           v-for="bird in birds"
-          :key="bird.id"
+          :key="bird.uid"
           :img-src="bird.images.main"
           img-alt="Image"
           img-top
         >
-          <b-card-title class="titulo">{{ bird.name.spanish }}</b-card-title>
+          <b-button id="show-btn" v-b-modal.modal-1 @click="showModal(bird)">{{
+            bird.name.spanish
+          }}</b-button>
         </b-card>
       </b-row>
+
+      <b-modal
+        :bird="currentBird"
+        id="modal-1"
+        hide-footer
+        title="Descripción general"
+      >
+        <div class="d-block text-center">
+          <h3>{{ currentBird.name.spanish }}</h3>
+        </div>
+      </b-modal>
     </b-container>
   </div>
 </template>
@@ -33,13 +46,23 @@ export default {
   data() {
     return {
       text: "",
+      bird: { name: { spanish: "" } },
     };
   },
   computed: {
-    ...mapState(["birds"]),
+    ...mapState(["birds", "currentBird"]),
   },
   methods: {
-    ...mapActions(["getBirds"]),
+    ...mapActions(["getBirds", "showBird"]),
+    showModal(bird) {
+      this.showBird(bird._links.self);
+
+      /*       this.$refs["my-modal"].show();
+       */
+    },
+    /* hideModal() {
+      this.$refs["my-modal"].hide();
+    }, */
   },
   created() {
     this.getBirds();
@@ -55,8 +78,19 @@ export default {
   max-height: 220px;
   min-height: 150px;
 }
-.titulo {
-  font-size: 15px;
+.card-body {
+  padding: 10px;
+}
+
+#show-btn {
+  background: none;
+  border: none;
+  color: #2c3e50;
+  margin: 0;
   padding: 0;
+}
+#show-btn:hover,
+#show-btn:active {
+  font-weight: bold;
 }
 </style>

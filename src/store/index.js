@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     currentUser: undefined,
     birds: [],
+    currentBird: { name: { spanish: "" } },
   },
   mutations: {
     UPDATE_CURR_USER(state, user) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     GET_BIRDS(state, birds) {
       state.birds = birds;
+    },
+    CURRENT_BIRD(state, bird) {
+      state.currentBird = bird;
     },
   },
   actions: {
@@ -34,6 +38,17 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response.data);
           commit("GET_BIRDS", response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    showBird({ commit }, birdHref) {
+      axios
+        .get(birdHref)
+        .then((response) => {
+          console.log(response.data);
+          commit("CURRENT_BIRD", response.data);
         })
         .catch(function(error) {
           console.log(error);
