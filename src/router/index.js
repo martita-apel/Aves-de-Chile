@@ -26,12 +26,6 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/about",
-      name: "About",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About.vue"),
-    },
-    {
       path: "*",
       name: "NotFound",
       component: NotFound,

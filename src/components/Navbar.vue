@@ -11,7 +11,6 @@
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav class="links">
             <b-nav-item to="/list">Inventario</b-nav-item>
-            <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>
 
           <b-nav-item-dropdown right v-show="currentUser">

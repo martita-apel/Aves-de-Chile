@@ -13,6 +13,7 @@ export default new Vuex.Store({
       images: { main: "" },
       map: { image: "", title: "" },
     },
+    overlay: false,
   },
   mutations: {
     UPDATE_CURR_USER(state, user) {
@@ -23,6 +24,12 @@ export default new Vuex.Store({
     },
     CURRENT_BIRD(state, bird) {
       state.currentBird = bird;
+    },
+    SHOW_OVERLAY(state) {
+      state.overlay = true;
+    },
+    HIDE_OVERLAY(state) {
+      state.overlay = false;
     },
   },
   actions: {
@@ -37,22 +44,26 @@ export default new Vuex.Store({
       });
     },
     getBirds({ commit }) {
+      commit("SHOW_OVERLAY");
       axios
         .get("http://aves.ninjas.cl/api/birds")
         .then((response) => {
           console.log(response.data);
           commit("GET_BIRDS", response.data);
+          commit("HIDE_OVERLAY");
         })
         .catch(function(error) {
           console.log(error);
         });
     },
     showBird({ commit }, birdHref) {
+      commit("SHOW_OVERLAY");
       axios
         .get(birdHref)
         .then((response) => {
           console.log(response.data);
           commit("CURRENT_BIRD", response.data);
+          commit("HIDE_OVERLAY");
         })
         .catch(function(error) {
           console.log(error);

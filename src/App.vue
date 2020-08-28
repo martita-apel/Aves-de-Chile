@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navbar class="navbar" />
-    <router-view />
+    <b-overlay :show="overlay" rounded="md">
+      <router-view />
+    </b-overlay>
   </div>
 </template>
 
@@ -10,11 +12,15 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import Navbar from "@/components/Navbar.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "Home",
   components: {
     Navbar,
+  },
+  computed: {
+    ...mapState(["overlay"]),
   },
 };
 </script>
