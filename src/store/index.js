@@ -8,7 +8,11 @@ export default new Vuex.Store({
   state: {
     currentUser: undefined,
     birds: [],
-    currentBird: { name: { spanish: "" } },
+    currentBird: {
+      name: { spanish: "" },
+      images: { main: "" },
+      map: { image: "", title: "" },
+    },
   },
   mutations: {
     UPDATE_CURR_USER(state, user) {
